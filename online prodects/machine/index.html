@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Machinery & Tools</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Roboto & Oswald -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #111827; /* Dark Gray/Blue */
+        }
+        .font-oswald {
+            font-family: 'Oswald', sans-serif;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.8)), url('https://images.unsplash.com/photo-1581092916378-2038b04e9a7e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .product-card {
+            border: 1px solid #374151;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #10B981;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 100;
+        }
+        #toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-800 border-b-4 border-yellow-500 sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="nav-link text-3xl font-oswald font-bold text-white uppercase tracking-wider">Machinery Hub</a>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-yellow-400 transition-colors duration-300">Home</a>
+                    <a href="#products" class="nav-link text-gray-300 hover:text-yellow-400 transition-colors duration-300">Products</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-yellow-400 transition-colors duration-300">Contact Us</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="#cart" class="nav-link relative text-gray-300 hover:text-yellow-400 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        <span id="cart-counter" class="absolute -top-2 -right-2 bg-yellow-500 text-gray-900 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800">
+            <a href="#home" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Home</a>
+            <a href="#products" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Products</a>
+            <a href="#contact" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <div id="home" class="page active">
+            <section class="hero-section py-24 sm:py-32">
+                <div class="container mx-auto text-center px-4">
+                    <h1 class="text-4xl md:text-6xl font-oswald font-extrabold text-white uppercase tracking-wide">Reliable Industrial Machinery</h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">Your trusted source for high-quality, pre-owned drill machines, lathe machines, and more. Built to last, ready to work.</p>
+                    <a href="#products" class="nav-link inline-block mt-8 bg-yellow-500 text-gray-900 font-bold uppercase py-3 px-8 rounded-md hover:bg-yellow-400 transition-colors duration-300">View Our Inventory</a>
+                </div>
+            </section>
+        </div>
+
+        <div id="products" class="page">
+            <section class="py-20 bg-gray-900">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-oswald font-bold text-white uppercase">Our Machinery</h2><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2"></div></div>
+                    <div id="product-list"></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="cart" class="page">
+            <section class="py-20 bg-gray-900">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-oswald font-bold text-white uppercase">Shopping Cart</h2><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2"></div></div>
+                    <div id="cart-items-container" class="max-w-4xl mx-auto"></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="checkout" class="page">
+            <section class="py-20 bg-gray-900">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-oswald font-bold text-white uppercase">Checkout</h2><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2"></div></div>
+                    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <!-- Shipping Details -->
+                        <div class="bg-gray-800 p-8 rounded-lg">
+                            <h3 class="text-2xl font-oswald font-semibold mb-6">Shipping Details</h3>
+                            <form id="shipping-form">
+                                <div class="space-y-4">
+                                    <div><label for="name" class="block text-sm font-medium text-gray-300">Full Name</label><input type="text" id="name" required class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"></div>
+                                    <div><label for="email" class="block text-sm font-medium text-gray-300">Email Address</label><input type="email" id="email" required class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"></div>
+                                    <div><label for="address" class="block text-sm font-medium text-gray-300">Address</label><input type="text" id="address" required class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"></div>
+                                    <div><label for="city" class="block text-sm font-medium text-gray-300">City</label><input type="text" id="city" required class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Order Summary & Payment -->
+                        <div class="bg-gray-800 p-8 rounded-lg">
+                            <h3 class="text-2xl font-oswald font-semibold mb-6">Order Summary</h3>
+                            <div id="checkout-summary"></div>
+                            <h3 class="text-2xl font-oswald font-semibold mt-8 mb-4">Payment Options</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gray-700 p-4 rounded-md"><label class="flex items-center"><input type="radio" name="payment" class="form-radio h-5 w-5 text-yellow-500 bg-gray-900 border-gray-600 focus:ring-yellow-500" checked><span class="ml-3 text-white">Bank Transfer / NEFT</span></label></div>
+                                <div class="bg-gray-700 p-4 rounded-md"><label class="flex items-center"><input type="radio" name="payment" class="form-radio h-5 w-5 text-yellow-500 bg-gray-900 border-gray-600 focus:ring-yellow-500"><span class="ml-3 text-white">Payment by Cheque</span></label></div>
+                                <div class="bg-gray-700 p-4 rounded-md"><label class="flex items-center"><input type="radio" name="payment" class="form-radio h-5 w-5 text-yellow-500 bg-gray-900 border-gray-600 focus:ring-yellow-500"><span class="ml-3 text-white">Cash on Delivery</span></label></div>
+                            </div>
+                            <button id="place-order-btn" class="w-full mt-8 bg-yellow-500 text-gray-900 font-bold uppercase py-3 px-8 rounded-md hover:bg-yellow-400 transition-colors duration-300">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="contact" class="page">
+            <section class="py-20 bg-gray-800">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-oswald font-bold text-white uppercase">Contact Us</h2><p class="text-gray-400 mt-2">Get in touch for inquiries, quotes, or to schedule a visit.</p><div class="w-24 h-1 bg-yellow-500 mx-auto mt-2"></div></div>
+                    <div class="max-w-4xl mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+                            <div class="border-b-2 md:border-b-0 md:border-r-2 border-gray-700 pb-8 md:pb-0 md:pr-8">
+                                <h3 class="text-2xl font-oswald font-semibold text-yellow-400 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.518.759a1.156 1.156 0 00-.43 1.639l4.882 4.881a1.156 1.156 0 001.639-.43l.758-1.518a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>Call Us</h3>
+                                <p class="mt-2 text-2xl text-white font-bold tracking-wider">7041073981</p><p class="text-gray-400 mt-1">Available for calls and inquiries</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-oswald font-semibold text-yellow-400 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>Email Us</h3>
+                                <p class="mt-2 text-xl text-white font-semibold break-all">mitkukadiya001@gmail.com</p><p class="text-gray-400 mt-1">Send us your requirements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 border-t-2 border-gray-800"><div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-400"><p>&copy; 2024 Machinery Hub. All Rights Reserved.</p></div></footer>
+    
+    <div id="toast"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const products = [
+                { id: 'd01', category: 'Drill Machines', name: 'Pillar Drill Machine', price: 85000, image: 'https://images.unsplash.com/photo-1563729831-6557640155a3?q=80&w=800&auto=format&fit=crop' },
+                { id: 'd02', category: 'Drill Machines', name: 'Radial Drill Machine', price: 250000, image: 'https://images.unsplash.com/photo-1620355931363-c023460f23e2?q=80&w=800&auto=format&fit=crop' },
+                { id: 'd03', category: 'Drill Machines', name: 'Bench Drill Machine', price: 25000, image: 'https://images.unsplash.com/photo-1599493356244-23a7e5d8393a?q=80&w=800&auto=format&fit=crop' },
+                { id: 'l01', category: 'Lathe Machines', name: 'All Geared Lathe (6ft)', price: 180000, image: 'https://images.unsplash.com/photo-1619642751222-75f28a78a5d2?q=80&w=800&auto=format&fit=crop' },
+                { id: 'l02', category: 'Lathe Machines', name: 'Heavy Duty Lathe (8ft)', price: 320000, image: 'https://images.unsplash.com/photo-1526289034000-75d21583861c?q=80&w=800&auto=format&fit=crop' },
+                { id: 'l03', category: 'Lathe Machines', name: 'CNC Lathe Machine', price: 1200000, image: 'https://images.unsplash.com/photo-1601888648113-a9a781b0a5b8?q=80&w=800&auto=format&fit=crop' },
+                { id: 'm01', category: 'Other Machinery', name: 'Vertical Milling Machine', price: 450000, image: 'https://images.unsplash.com/photo-1611118495034-8c5a4a4a2a1b?q=80&w=800&auto=format&fit=crop' },
+                { id: 'm02', category: 'Other Machinery', name: 'Surface Grinding Machine', price: 375000, image: 'https://images.unsplash.com/photo-1506484381205-f7945653044d?q=80&w=800&auto=format&fit=crop' },
+                { id: 'c01', category: 'Cutting Machines', name: 'Hydraulic Shearing Machine', price: 550000, image: 'https://images.unsplash.com/photo-1556912173-353abe0c43a2?q=80&w=800&auto=format&fit=crop' },
+                { id: 'c02', category: 'Cutting Machines', name: 'Power Press Machine', price: 210000, image: 'https://images.unsplash.com/photo-1571224162998-4a4a753237a9?q=80&w=800&auto=format&fit=crop' },
+                { id: 's01', category: 'Sheet Metal Machines', name: 'Plate Bending Machine', price: 600000, image: 'https://images.unsplash.com/photo-1528642474492-719a24344a30?q=80&w=800&auto=format&fit=crop' },
+                { id: 's02', category: 'Sheet Metal Machines', name: 'Hydraulic Press Brake', price: 750000, image: 'https://images.unsplash.com/photo-1629904039846-9184535a6f62?q=80&w=800&auto=format&fit=crop' },
+            ];
+
+            const productContainer = document.getElementById('product-list');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartCounter = document.getElementById('cart-counter');
+            const checkoutSummaryContainer = document.getElementById('checkout-summary');
+            const placeOrderBtn = document.getElementById('place-order-btn');
+
+            let cart = [];
+
+            function renderProducts() {
+                const categories = [...new Set(products.map(p => p.category))];
+                let html = '';
+                categories.forEach(category => {
+                    html += `<h3 class="text-2xl font-oswald font-semibold text-yellow-400 mb-6 uppercase">${category}</h3>`;
+                    html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">`;
+                    products.filter(p => p.category === category).forEach(product => {
+                        html += `
+                            <div class="bg-gray-800 rounded-lg overflow-hidden product-card flex flex-col">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/374151/FFFFFF?text=Image+Unavailable';">
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h4 class="text-xl font-bold font-oswald">${product.name}</h4>
+                                    <p class="mt-2 text-2xl font-bold text-yellow-400">₹${product.price.toLocaleString('en-IN')}</p>
+                                    <div class="mt-auto pt-4">
+                                        <button class="add-to-cart-btn w-full bg-yellow-500 text-gray-900 font-bold uppercase py-2 px-4 rounded-md hover:bg-yellow-400 transition-colors duration-300"
+                                            data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                });
+                productContainer.innerHTML = html;
+            }
+
+            function updateCart() {
+                cartCounter.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+                renderCartItems();
+                renderCheckoutSummary();
+            }
+
+            function renderCartItems() {
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = `<div class="bg-gray-800 p-8 rounded-lg text-center"><p class="text-gray-400">Your cart is empty.</p><a href="#products" class="nav-link inline-block mt-4 text-yellow-400 hover:text-yellow-300">Continue Shopping &rarr;</a></div>`;
+                    return;
+                }
+
+                let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                let itemsHtml = cart.map(item => `
+                    <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg mb-4">
+                        <div class="flex-1"><p class="text-white">${item.name}</p></div>
+                        <div class="flex-1 text-center"><p class="text-gray-300">₹${item.price.toLocaleString('en-IN')}</p></div>
+                        <div class="flex-1 flex items-center justify-center gap-4">
+                            <button class="quantity-change-btn" data-id="${item.id}" data-change="-1">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-change-btn" data-id="${item.id}" data-change="1">+</button>
+                        </div>
+                        <div class="flex-1 text-right"><button class="remove-from-cart-btn text-red-500 hover:text-red-400" data-id="${item.id}">Remove</button></div>
+                    </div>
+                `).join('');
+
+                cartItemsContainer.innerHTML = `
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        ${itemsHtml}
+                        <div class="border-t border-gray-700 mt-6 pt-6 text-right">
+                            <p class="text-2xl font-bold">Total: <span class="text-yellow-400">₹${total.toLocaleString('en-IN')}</span></p>
+                            <button id="checkout-btn" class="nav-link mt-4 bg-yellow-500 text-gray-900 font-bold uppercase py-3 px-8 rounded-md hover:bg-yellow-400 transition-colors duration-300">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderCheckoutSummary() {
+                 if (cart.length === 0) {
+                    checkoutSummaryContainer.innerHTML = `<p class="text-gray-400">Your cart is empty.</p>`;
+                    return;
+                }
+                let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                let shipping = 5000; // Example shipping
+                let total = subtotal + shipping;
+
+                checkoutSummaryContainer.innerHTML = `
+                    <div class="space-y-2 text-gray-300">
+                        ${cart.map(item => `<div class="flex justify-between"><span>${item.name} x ${item.quantity}</span><span>₹${(item.price * item.quantity).toLocaleString('en-IN')}</span></div>`).join('')}
+                        <div class="border-t border-gray-700 my-2"></div>
+                        <div class="flex justify-between"><span>Subtotal</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between"><span>Shipping</span><span>₹${shipping.toLocaleString('en-IN')}</span></div>
+                        <div class="border-t border-gray-700 my-2"></div>
+                        <div class="flex justify-between text-xl font-bold text-white"><span>Total</span><span class="text-yellow-400">₹${total.toLocaleString('en-IN')}</span></div>
+                    </div>
+                `;
+            }
+
+            function showToast(message) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            document.body.addEventListener('click', e => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const id = e.target.dataset.id;
+                    const name = e.target.dataset.name;
+                    const price = parseInt(e.target.dataset.price);
+                    const existingItem = cart.find(item => item.id === id);
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({ id, name, price, quantity: 1 });
+                    }
+                    updateCart();
+                    showToast(`${name} added to cart!`);
+                }
+
+                if (e.target.classList.contains('remove-from-cart-btn')) {
+                    const id = e.target.dataset.id;
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                }
+
+                if (e.target.classList.contains('quantity-change-btn')) {
+                    const id = e.target.dataset.id;
+                    const change = parseInt(e.target.dataset.change);
+                    const item = cart.find(item => item.id === id);
+                    if (item) {
+                        item.quantity += change;
+                        if (item.quantity <= 0) {
+                            cart = cart.filter(i => i.id !== id);
+                        }
+                    }
+                    updateCart();
+                }
+                
+                if (e.target.id === 'checkout-btn') {
+                    showPage('checkout');
+                }
+            });
+
+            placeOrderBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(document.getElementById('shipping-form').checkValidity()) {
+                    alert('Order Placed Successfully! We will contact you shortly.');
+                    cart = [];
+                    updateCart();
+                    showPage('home');
+                } else {
+                    alert('Please fill out all shipping details.');
+                }
+            });
+
+            // --- Page Navigation ---
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.toggle('active', page.id === pageId);
+                });
+                window.scrollTo(0, 0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = new URL(link.href).hash.substring(1);
+                    showPage(pageId);
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Initial load
+            renderProducts();
+            updateCart();
+            showPage('home'); // Start on home page
+        });
+    </script>
+
+</body>
+</html>
